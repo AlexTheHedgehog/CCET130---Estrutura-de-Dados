@@ -1,0 +1,10 @@
+LISTAS ENCADEADAS (Linked Lists)
+- São dinâmicas (?)
+
+EXEMPLO: Crie uma lista encadeada e insira os valores 7, 3, 8, 10, 9, 1
+
+Quando se cria uma lista, o próximo valor além do último que foi introduzido na lista
+aponta para NULO, este apontador serve para preencher com o próximo valor que será introduzido.
+
+l = (1,7,3,8) == l -> 7 -> 3 -> 8 -> NULL
+Exclua(3)
