@@ -40,10 +40,13 @@ int ultimo(NO *no){
 
 NO *ultimoNo(NO *lista){
     NO* ultimo = lista;
-    if (!ultimo)
+    if (!ultimo){
         return NULL;
-    while(ultimo->prox !=NULL)
+    }
+    
+    while(ultimo->prox !=NULL){
         ultimo = ultimo->prox;
+    }
     return ultimo;
 }
 

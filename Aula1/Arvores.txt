@@ -1,0 +1,14 @@
+ÁRVORES
+
+- Raiz
+- Folha
+- Nós internos
+- Altura = Nível máximo + 1
+
+0 ---------------O <- Raiz
+                / \
+1 -------------O - O
+              / \
+2 -----------O - O
+            /
+3 ---------O
