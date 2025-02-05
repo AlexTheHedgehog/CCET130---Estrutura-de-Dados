@@ -8,7 +8,22 @@ typedef struct no{
 }NO;
 
 NO *inserir(NO *arv, int chave);
-NO *excluir(NO *arv, int chave);
+
+/*
+  Como excluir?
+  - Devemos considerar 3 casos:
+    1 - O nó a ser excluído é uma folha; nesse caso basta removê-lo
+    2 - O nó a ser excluído tem um filho à esquerda
+*/
+
+NO *excluir(NO *raiz, int chave){
+  if (raiz==NULL){
+    return raiz;
+  }
+  if (chave < raiz->chave){
+    raiz->esq = excluir(raiz->esq, chave);
+  }
+}
 int contaFolha(NO *arv);
 int altura(NO *arv);
 NO *criaNO(int chave);
@@ -129,5 +144,36 @@ void imprimir(NO *raiz){
 }
 
 int contaFolha(NO *raiz){
-    
+    if (raiz){
+      if (!raiz->esq && !raiz->dir){ //é folha
+        return 1;
+      } else {
+        return 1 + contaFolha(raiz->esq) + contaFolha(raiz->dir);
+      }
+      NO *minimo(NO *raiz){
+        NO *aux = raiz;
+        while (aux && aux->esq){
+          aux = aux->esq;
+        }
+        return aux;
+      }
+
+      NO *minimoRec(NO *raiz){
+        if (raiz && raiz->esq){
+          return minimoRec(raiz->esq);
+        } else {
+          return raiz;
+        }
+      }
+      
+      NO *maximo(NO *raiz){
+        NO *aux = raiz;
+        if (aux){
+          while (aux->dir){
+            aux = aux->esq;
+          }
+        }
+        return aux;
+      }
+    }
 }
