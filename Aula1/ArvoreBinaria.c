@@ -1,4 +1,4 @@
- #include<stdio.h>
+#include<stdio.h>
 #include<stdlib.h>
 
 typedef struct no{
@@ -24,8 +24,29 @@ NO *excluir(NO *raiz, int chave){
     raiz->esq = excluir(raiz->esq, chave);
   }
 }
-int contaFolha(NO *arv);
-int altura(NO *arv);
+
+int contaFolha(NO *raiz);
+
+int altura(NO *raiz){
+  if(!raiz){
+    return 0;
+  } else {
+    return 1 + maior(altura(raiz->esq), altura(raiz->esq));
+  }
+}
+
+int balanceada(NO *raiz){
+  static int var1 = 0;
+  if (raiz){
+    if (balanceada(raiz->esq) && balanceada(raiz->dir) < 2){
+      return balanceada(raiz->esq) && balanceada(raiz->dir);
+    } else {
+      return 0;
+    }
+  }
+  return 1;
+}
+
 NO *criaNO(int chave);
 NO *inserir(NO *raiz, int chave);
 void imprimir(NO *raiz);
@@ -33,17 +54,43 @@ void imprimir(NO *raiz);
 
 int main(){
    NO *raiz = NULL;
-   int opcao;
+   int opcao, cont, alt;
    opcao = menu();
+   int chave = scanf("&d", &chave);
+   NO *arv;
    switch(opcao){
-      case 1: // inserir uma chave
-          raiz = inserir(raiz, chave);
-          break;
-      case 2: // excluir um nó
-          raiz = excluir(raiz, chave);
-          break;
-      
-   };
+    case 1: // inserir
+        raiz = inserir(raiz, chave);
+        break;
+    /*case 2: //excluir um nó
+        raiz = excluir(raiz, chave);
+        break;
+    case 3: // conta as folhas
+        cont = contarFolhas(raiz);
+        break;
+    case 4: // altura da arvore
+        alt = altura(arv);
+        break;*/
+    case 5: //caminhamento em pré-ordem
+        preOrdem(arv);
+        break;
+    case 6: //caminhamento em ordem central
+        ordemCentral(arv);
+        break;
+    case 7: //caminhamento em pos-ordem
+        posOrdem(arv);
+        break;
+    case 8: // criar um novo nó
+        raiz = criaNo(chave);
+        break;
+    case 9: //imprimir um nó
+        imprimir(raiz);
+        break;
+    default:
+        printf("\nRetorno padrao");
+
+};
+return 0;
 }
 
 NO *criaNO(int chave){
@@ -144,36 +191,80 @@ void imprimir(NO *raiz){
 }
 
 int contaFolha(NO *raiz){
-    if (raiz){
-      if (!raiz->esq && !raiz->dir){ //é folha
-        return 1;
-      } else {
-        return 1 + contaFolha(raiz->esq) + contaFolha(raiz->dir);
-      }
-      NO *minimo(NO *raiz){
-        NO *aux = raiz;
-        while (aux && aux->esq){
-          aux = aux->esq;
-        }
-        return aux;
-      }
-
-      NO *minimoRec(NO *raiz){
-        if (raiz && raiz->esq){
-          return minimoRec(raiz->esq);
-        } else {
-          return raiz;
-        }
-      }
-      
-      NO *maximo(NO *raiz){
-        NO *aux = raiz;
-        if (aux){
-          while (aux->dir){
-            aux = aux->esq;
+  if(raiz){
+          if(!raiz->esq && !raiz->dir){
+              return 1;
+          }else{
+              return contaFolha(raiz->esq)+contaFolha(raiz->dir);
           }
-        }
-        return aux;
-      }
-    }
+  }else{
+      return 0;
+  }
 }
+
+int contaNo(NO *raiz){
+  if(!raiz){
+      return 0;
+  }else{
+      return 1+contaNo(raiz->esq)+contaNo(raiz->dir);
+  }
+}
+
+NO *minimo(NO *raiz){
+  NO *aux = raiz;
+  if(aux)
+      while(aux->esq)
+          aux = aux ->esq;
+  return aux;
+}
+
+
+
+NO *minimoRec(NO *raiz){
+  if(raiz && raiz->esq){
+      return minimoRec(raiz->esq);
+  }else{
+      return raiz;
+  }
+}
+
+
+NO *maio(NO *raiz){
+  NO *aux = raiz;
+  if(aux)
+      while (aux->dir)
+          aux = aux -> dir;
+  return aux;
+}
+
+
+NO *maiorRec(NO *raiz){
+  if(raiz && raiz->dir){
+      return maiorRec(raiz->dir);
+  }else{
+      return raiz;
+  }
+}
+/*
+O antecessor em ordem de um dado nó, é o nó da árvore da esquerda que tem a maior chave
+*/
+
+NO *antecessor(NO *raiz){
+  if(raiz && raiz->esq){
+      return maximo(raiz->esq);
+  }
+  return raiz;
+}
+
+
+
+int maior(int a, int b){
+  if(a>b)
+      return a;
+  return b;
+}
+
+/*
+Escreva uma função em C para:
+
+*/
