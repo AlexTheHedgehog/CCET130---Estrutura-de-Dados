@@ -1,0 +1,31 @@
+Introdução a Árvores-B
+    - São balanceadas;
+    - Todas as informações são armazenadas nas folhas;
+    - Os nós armazenam chaves e ponteiros para os filhos;
+    - Se um nó interno X tem n chaves, então ele tem n+1 filhos;
+    - As folhas estão no mesmo nível.
+
+Propriedades de uma Árvore-balanceadas
+    - É uma árvore que tem as seguintes propriedades:
+        1- cada nó x, tem os seguintes campos:
+            1. n[x]  - o número de chaves armazenadas em x;
+            2. as n[x] chaves são dispostas em ordem não decrescente de forma que key_1_[x] <= key_2_[x]
+            ....<= key_n-1_[x] <= key_n_[x].
+            3. Folha[x], um booleano indicando se o nó é ou não uma folha.
+        2- 
+        3- 
+        4- Uma Árvore-B tem um grau mínimo t>=2, que delimita o mínimo (t-1) e o máximo (2t-1) de chaves em cada nó.
+            - Mínimo de chaves = t-1.
+            - Máximo de chaves = 2t-1 keys.
+                - Um nó interno x pode ter no máximo 2t filhos.
+                - Se um nó tem 2t-1 chaves, dizemos que ele está cheio.
+
+Altura de uma Árvore-balanceadas
+    Teorema:
+        - Para toda árvore-B, T, com n >= 1 chaves, grau mínimo t >= 2 e altura h, temos que h <= log_t_((n+1)/2)
+    Prova:
+        - A raiz contém ao menos uma chaves
+        - Todos os outros nós tem no mínimo t-1 chaves.
+        - Existem no mínimo 2 nos nível 1, no mínimo 2t no nível 2, no mínimo 2t^(i-1) nós no nível i e 2t^(h-1) nós no nível h.
+            n >= 1+(t-1) * somatória(h, i==1, 2t^(i-1))
+            = 1 + 2(t-2) * ((t^(h) - 1)/(t-1)) = 2t^(h) - 1.
